@@ -1,0 +1,32 @@
+.dialogs {
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+    padding: 20px;
+}
+
+.dialogsItems {
+    width: 300px;
+}
+
+.dialog.active {
+    color: aqua;
+}
+
+.dialog {
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.messages {
+    padding: 20px;
+}
+
+.avatar {
+    max-width: 50px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.addMessage {
+    padding: 20px;
+}
