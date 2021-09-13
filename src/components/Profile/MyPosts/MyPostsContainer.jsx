@@ -1,7 +1,6 @@
 import React from 'react';
 import {addPostAC, updateNewPostAC} from "../../../redux/profile-reducer";
 import MyPosts from "./MyPosts";
-import {sendMessageAC, updateNewMessageBodyAC} from "../../../redux/dialogs-reducer";
 import {connect} from "react-redux";
 
 
@@ -14,8 +13,7 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
     return {
-        updateNewPost: (newText) => {dispatch(updateNewPostAC(newText))},
-        addPost: () => {dispatch(addPostAC())}
+        addPost: (newPostText) => {dispatch(addPostAC(newPostText))}
     }
 }
 

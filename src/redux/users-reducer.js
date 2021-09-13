@@ -1,3 +1,5 @@
+import {usersApi as usersAPI, usersApi} from "../api/api";
+
 const TOGGLE_FOLLOW = 'TOGGLE_FOLLOW';
 const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
@@ -69,4 +71,28 @@ export const toggleIsFetching = (isFetching) => {
 
 export const toggleFollowingProgress = (isFetching, userId) => {
     return {type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId}
+}
+
+export const getUsers = (currentPage,pageSize ) => { // -> ThunkCreator
+    return (dispatch) => {
+        dispatch(setCurrentPage(currentPage));
+        dispatch(toggleIsFetching(true))
+        usersApi.getUsers(currentPage, pageSize).then(data => {
+            dispatch(toggleIsFetching(false))
+            dispatch(setUsers(data.items))
+            dispatch(setTotalUsersCount(data.totalCount))
+        })
+    }
+}
+
+export const follow = (userId, uFollowed) => {
+    return (dispatch) => {
+        dispatch(toggleFollowingProgress(true, userId))
+        usersAPI.follow(userId, uFollowed).then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(toggleFollow(userId))
+            }
+            dispatch(toggleFollowingProgress(false, userId))
+        })
+    }
 }

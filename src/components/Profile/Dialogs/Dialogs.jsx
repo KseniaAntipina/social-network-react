@@ -2,25 +2,21 @@ import React from 'react';
 import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
+import {Redirect} from "react-router-dom";
+import {Field, Form} from "react-final-form";
 
 const Dialogs = (props) => {
 
     let messagesPage = props.messagesPage
-
     let dialogsItems = messagesPage.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
     let messagesItems = messagesPage.messages.map(m => <Message message={m.message}/>)
+    let newMessage = messagesPage.newMessageBody;
 
-    let newMessage = React.createRef(); // создаем ссылку на элемент
-
-    let addMessage = () => {
-        props.sendMessage()
+    let addMessage = (values) => {
+        props.sendMessage(values.newMessageBody);
     }
 
-    let updateMessage = () => {
-        let text = newMessage.current.value;
-        props.updateNewMessageBody(text)
-    }
-
+    if (!props.isAuth) return <Redirect to={"/login"}/>
 
     return (
         <>
@@ -33,10 +29,7 @@ const Dialogs = (props) => {
                 </div>
             </div>
             <div className={s.addMessage}>
-                <div><textarea ref={newMessage} onChange={updateMessage} value={messagesPage.newMessageBody}/></div>
-                <div>
-                    <button onClick={addMessage}>Отправить</button>
-                </div>
+                <AddMessageForm onSubmit={addMessage}/>
             </div>
 
         </>
@@ -45,3 +38,21 @@ const Dialogs = (props) => {
 
 
 export default Dialogs;
+
+const AddMessageForm = props => {
+
+    return (
+        <Form
+            onSubmit={props.onSubmit}>
+
+            {({ handleSubmit}) => (
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <Field name="newMessageBody" component="textarea" placeholder="Enter your message..." />
+                </div>
+                <button>send</button>
+            </form>
+        )}
+        </Form>
+    )
+}

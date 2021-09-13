@@ -1,30 +1,22 @@
 import React from 'react';
 import s from './MyPosts.module.css'
 import Post from "./Post/Post";
-import {addPostAC, updateNewPostAC} from "../../../redux/profile-reducer";
+import {Field, Form} from "react-final-form";
 
 
 const  MyPosts = (props) => {
 
-    let newPostElement = React.createRef(); // создаем ссылку на элемент
-
     let postsItems = props.posts.map( p => <Post message={p.post} key={p.id} likeCount={p.likeCount}/>)
 
-    let addPost = () => {
-        props.addPost()
-    }
-
-    let onPostChange = () => {
-        let newText = newPostElement.current.value;
-        props.updateNewPost(newText)
+    let addPost = (values) => {
+        props.addPost(values.newPostText)
     }
 
     return  (
             <div className={s.postsBlock}>
                 <h3>My posts</h3>
                 <div>
-                    <div><textarea ref={newPostElement} onChange={onPostChange} value={props.newPostText} /></div>
-                    <div><button onClick={addPost}>add post</button></div>
+                    <AddPostForm onSubmit={addPost}/>
                 </div>
                 <div className={s.posts}>
                     {postsItems}
@@ -34,3 +26,20 @@ const  MyPosts = (props) => {
 }
 
 export default MyPosts;
+
+
+const AddPostForm = props => {
+
+    return (
+        <Form onSubmit={props.onSubmit}>
+            {({ handleSubmit}) => (
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        <Field name="newPostText" component="textarea" placeholder="Enter your post..." />
+                    </div>
+                    <button>publish</button>
+                </form>
+            )}
+        </Form>
+    )
+}
