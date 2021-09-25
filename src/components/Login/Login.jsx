@@ -1,36 +1,50 @@
 import React from 'react'
-import { Form, Field } from 'react-final-form'
+import {Form, Field} from 'react-final-form'
+import {Input} from "../common/FormsControls/FormsControls";
+import {required} from "../../utils/validators/validators";
+import {connect} from "react-redux";
+import {login} from "../../redux/auth-reducer";
+import {Redirect} from "react-router-dom";
 
 
-const LoginForm  = () => {
+const LoginForm = (props) => {
 
+    if (props.isAuth) {return <Redirect to={"/profile"}/>}
+    
+    const onSubmit = async (formData) => {
+        return await props.login(formData.email, formData.password, formData.rememberMe)
+    };
     return (
-        <Form
-            onSubmit={formData => {
-                console.log(formData);
-            }}>
-            {({ handleSubmit}) => (
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <div><Field name="login" component="input" placeholder="login" /></div>
-                        <div><Field name="password" component="input" placeholder="input" /></div>
-                        <div><Field component={"input"} name={"rememberMe"} type={"checkbox"}/> remember me</div>
-                    </div>
-                    <button type="submit">Login</button>
-                </form>
-            )}
-        </Form>
+        <>
+            <Form
+                onSubmit={onSubmit}>
+                {({handleSubmit, submitError}) => (
+                    <form onSubmit={handleSubmit}>
+                        <div>
+                            <div><Field name="email" component={Input} placeholder="email" validate={required}/></div>
+                            <div><Field name="password" component={Input} placeholder="input" validate={required}
+                                        type={"password"}/></div>
+                            <div><Field component={Input} name={"rememberMe"} type={"checkbox"}/> remember me</div>
+                        </div>
+                        <button type="submit">Login</button>
+                        <p>{submitError && <div>{submitError}</div>}</p>
+                    </form>
+                )}
+            </Form>
+        </>
     )
 }
 
-
-
-const Login = () => {
+/*const Login = () => {
 
     return <div>
         <h1>Login</h1>
         <LoginForm/>
     </div>
-}
+}*/
 
-export default Login;
+const mapStateToProps = (state) => ({
+    isAuth: state.auth.isAuth
+})
+
+export default connect(mapStateToProps, {login})(LoginForm);

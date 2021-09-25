@@ -2,6 +2,8 @@ import React from 'react';
 import s from './MyPosts.module.css'
 import Post from "./Post/Post";
 import {Field, Form} from "react-final-form";
+import {maxLengthCreator, required} from "../../../utils/validators/validators";
+import {Textarea} from "../../common/FormsControls/FormsControls";
 
 
 const  MyPosts = (props) => {
@@ -27,6 +29,8 @@ const  MyPosts = (props) => {
 
 export default MyPosts;
 
+const composeValidators = (...validators) => value =>
+    validators.reduce((error, validator) => error || validator(value), undefined)
 
 const AddPostForm = props => {
 
@@ -35,7 +39,11 @@ const AddPostForm = props => {
             {({ handleSubmit}) => (
                 <form onSubmit={handleSubmit}>
                     <div>
-                        <Field name="newPostText" component="textarea" placeholder="Enter your post..." />
+                        <Field name="newPostText"
+                               component={Textarea}
+                               placeholder="Enter your post..."
+                               validate={composeValidators(required, maxLengthCreator(30))}
+                        />
                     </div>
                     <button>publish</button>
                 </form>

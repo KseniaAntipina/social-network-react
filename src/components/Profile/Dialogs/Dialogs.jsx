@@ -4,6 +4,8 @@ import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import {Redirect} from "react-router-dom";
 import {Field, Form} from "react-final-form";
+import {maxLengthCreator, required} from "../../../utils/validators/validators";
+import {Textarea} from "../../common/FormsControls/FormsControls";
 
 const Dialogs = (props) => {
 
@@ -16,7 +18,7 @@ const Dialogs = (props) => {
         props.sendMessage(values.newMessageBody);
     }
 
-    if (!props.isAuth) return <Redirect to={"/login"}/>
+    /*if (!props.isAuth) return <Redirect to={"/login"}/>*/
 
     return (
         <>
@@ -39,16 +41,22 @@ const Dialogs = (props) => {
 
 export default Dialogs;
 
+const composeValidators = (...validators) => value =>
+    validators.reduce((error, validator) => error || validator(value), undefined)
+
+
 const AddMessageForm = props => {
 
     return (
         <Form
             onSubmit={props.onSubmit}>
-
             {({ handleSubmit}) => (
             <form onSubmit={handleSubmit}>
                 <div>
-                    <Field name="newMessageBody" component="textarea" placeholder="Enter your message..." />
+                    <Field name="newMessageBody"
+                           component={Textarea}
+                           validate={composeValidators(required, maxLengthCreator(30))}
+                           placeholder="Enter your message..." />
                 </div>
                 <button>send</button>
             </form>
