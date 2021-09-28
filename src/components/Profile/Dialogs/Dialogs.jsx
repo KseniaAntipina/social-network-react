@@ -2,7 +2,6 @@ import React from 'react';
 import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import {Redirect} from "react-router-dom";
 import {Field, Form} from "react-final-form";
 import {maxLengthCreator, required} from "../../../utils/validators/validators";
 import {Textarea} from "../../common/FormsControls/FormsControls";
@@ -12,7 +11,7 @@ const Dialogs = (props) => {
     let messagesPage = props.messagesPage
     let dialogsItems = messagesPage.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
     let messagesItems = messagesPage.messages.map(m => <Message message={m.message}/>)
-    let newMessage = messagesPage.newMessageBody;
+
 
     let addMessage = (values) => {
         props.sendMessage(values.newMessageBody);

@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
-import {BrowserRouter, Route} from "react-router-dom";
+import {Route} from "react-router-dom";
 import DialogsContainer from "./components/Profile/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
@@ -22,7 +22,6 @@ class App extends React.Component {
         if(!this.props.initialized) {
             return <Preloader/>
         }
-
 
         return (
             <div className='app-wrapper'>
