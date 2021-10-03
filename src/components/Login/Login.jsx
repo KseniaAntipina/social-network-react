@@ -16,6 +16,7 @@ const LoginForm = (props) => {
     };
     return (
         <>
+            <h1>Login</h1>
             <Form
                 onSubmit={onSubmit}>
                 {({handleSubmit, submitError}) => (
@@ -28,6 +29,7 @@ const LoginForm = (props) => {
                         </div>
                         <button type="submit">Login</button>
                         <p>{submitError && <div>{submitError}</div>}</p>
+
                     </form>
                 )}
             </Form>
