@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './../Dialogs.module.css'
 import {NavLink} from "react-router-dom";
-import Avatar from './../../../../images/avatar.png'
+import Avatar from './../../../../assets/images/user.png'
 
 const DialogItem = (props) => {
     return (
