@@ -6,3 +6,7 @@
 .userItem {
     margin-bottom: 20px;
 }
+
+.linkToUser , .userPhoto{
+    display: block;
+}

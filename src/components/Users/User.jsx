@@ -7,25 +7,25 @@ const User = ({user, followingInProgress, follow}) => {
 
     return (
             <div key={user.id} className={s.userItem}>
-                <NavLink to={'/profile/' + user.id}>
+                <NavLink to={'/profile/' + user.id} className={s.userPhoto}>
                     <img src={user.photos.small ? user.photos.small : userPhoto} className={s.userAva}
                          alt={'аватар'}/>
                 </NavLink>
+                <NavLink to={'/profile/' + user.id} className={s.linkToUser}>
+                    <div>{user.name}</div>
+                </NavLink>
                 {
                     user.followed ?
-                        <button disabled={followingInProgress.some(id => id === user.id)} onClick={() => {
+                        <button className="btnDefault" disabled={followingInProgress.some(id => id === user.id)} onClick={() => {
                             follow(user.id, user.followed)
 
                         }}>unfollow</button>
                         :
-                        <button disabled={followingInProgress.some(id => id === user.id)} onClick={() => {
+                        <button className="btnDefault" disabled={followingInProgress.some(id => id === user.id)} onClick={() => {
                             follow(user.id, user.followed)
 
                         }}>follow</button>
                 }
-                <NavLink to={'/profile/' + user.id}>
-                    <div>{user.name}</div>
-                </NavLink>
                 <div>{user.status}</div>
             </div>
     )

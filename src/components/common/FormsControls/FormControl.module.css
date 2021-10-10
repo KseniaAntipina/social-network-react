@@ -6,3 +6,9 @@
 .formControl.error span {
     color: red;
 }
+
+.formControl input[type=checkbox] {
+    display: inline-block;
+}
+
+

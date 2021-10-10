@@ -1,15 +1,21 @@
 .app-wrapper {
   margin: 0 auto;
   display: grid;
-  width: 1200px;
   grid-template-areas:
           "h h"
           "n c";
 
-  grid-template-rows: 60px 1fr;
+  grid-template-rows: 70px 1fr;
   grid-template-columns: 2fr 10fr;
+  background-color: #f9fafb;
 }
 
 .app-wrapper-content {
-  background: antiquewhite;
+  grid-area: c;
+  background-color: #f9fafb;
+  max-width: 1000px;
+  width: 100%;
+  padding: 30px 10px;
+  margin-left: auto;
+  margin-right: auto;
 }

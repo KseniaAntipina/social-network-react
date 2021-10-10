@@ -3,7 +3,7 @@ import {Form, Field} from 'react-final-form'
 import {Input} from "../common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
-import {login} from "../../redux/auth-reducer";
+import {getCaptcha, login} from "../../redux/auth-reducer";
 import {Redirect} from "react-router-dom";
 
 
@@ -12,7 +12,7 @@ const LoginForm = (props) => {
     if (props.isAuth) {return <Redirect to={"/profile"}/>}
     
     const onSubmit = async (formData) => {
-        return await props.login(formData.email, formData.password, formData.rememberMe)
+        return await props.login(formData.email, formData.password, formData.rememberMe, formData.captchaUrl)
     };
     return (
         <>
@@ -28,8 +28,14 @@ const LoginForm = (props) => {
                             <div><Field component={Input} name={"rememberMe"} type={"checkbox"}/> remember me</div>
                         </div>
                         <button type="submit">Login</button>
-                        <p>{submitError && <div>{submitError}</div>}</p>
 
+                        {props.captchaUrl && <img src={props.captchaUrl} alt={"captcha"}/>}
+                        {props.captchaUrl && <Field component={Input}
+                                                    name={"captchaUrl"}
+                                                    placeholder={"symbols from image"}
+                                                    validate={required}/>}
+
+                        <p>{submitError && <div>{submitError}</div>}</p>
                     </form>
                 )}
             </Form>
@@ -37,16 +43,9 @@ const LoginForm = (props) => {
     )
 }
 
-/*const Login = () => {
-
-    return <div>
-        <h1>Login</h1>
-        <LoginForm/>
-    </div>
-}*/
-
 const mapStateToProps = (state) => ({
-    isAuth: state.auth.isAuth
+    isAuth: state.auth.isAuth,
+    captchaUrl: state.auth.captchaUrl
 })
 
 export default connect(mapStateToProps, {login})(LoginForm);

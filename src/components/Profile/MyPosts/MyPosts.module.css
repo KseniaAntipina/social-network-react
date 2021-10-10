@@ -1,7 +1,11 @@
 .postsBlock {
-    padding: 10px;
+    background-color: #FFFFFF;
+    border-radius: 1rem;
+    padding: 30px;
+    box-shadow: 0 0 1.25rem 0 rgb(0 0 0 / 10%);
 }
 
-.posts {
-    margin-top: 10px;
+
+.bthPublishPost {
+    margin: 0 0  30px 0;
 }

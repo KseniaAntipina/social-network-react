@@ -1,16 +1,17 @@
 .nav {
     grid-area: n;
-    background-color: burlywood;
-    padding: 20px;
+    background-color: #f9fafb;
+    padding: 30px;
+    border-right: 1px solid #e5e7eb;
 }
 
-a {
-    color: #666;
+.nav a {
     text-decoration: none;
+    padding-bottom: 20px;
     display: block;
-    padding-bottom: 10px;
+    color: #333;
 }
 
-a.active {
-    color: gold;
+.nav a.active {
+    color: #2a41e8;
 }

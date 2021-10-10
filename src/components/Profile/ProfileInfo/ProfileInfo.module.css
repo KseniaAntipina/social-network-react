@@ -1,7 +1,119 @@
-.content img {
-    max-width: 900px;
+.content {
+    position: relative;
+    background-color: #FFFFFF;
+    border-radius: 1rem;
+    padding-bottom: 40px;
+    margin-bottom: 30px;
+    box-shadow: 0 0 1.25rem 0 rgb(0 0 0 / 10%);
+}
+
+.wrapContentImageCover {
+    height: 285px;
+    width: 100%;
+    position: relative;
+    padding: 0;
+    border-radius: 12px 12px 0 0;
+}
+
+.wrapContentImageCover img {
+    border-radius: 12px 12px 0 0;
+}
+
+.contentImageCover {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+.contentAvatarWrap {
+    margin-bottom: 100px;
+}
+
+.contentAvatar {
+    width: 200px;
+    margin: 0 auto;
+    left: calc(50% - 104px);
+    display: flex;
+    align-items: end;
+    overflow: hidden;
+    border-radius: 100%;
+    border: 4px solid #FFF;
+    box-shadow: 0 2px 20px 0 rgb(0 0 0 / 30%);
+    position: absolute;
+    top: 160px;
+}
+
+.ownerAvatarEditor {
+    position: absolute;
+    visibility: hidden;
+}
+
+.changePhotoBlock {
+    opacity: 0;
+    transform: translateY(20px);
+    position: absolute;
+    bottom: 0px;
+    transition: all 200ms ease-in-out;
+    background-color: rgba(29, 32, 34, .7);
+    width: 100%;
+    height: 38px;
+    left: 0;
+    text-align: center;
+}
+
+.contentAvatar:hover .changePhotoBlock {
+    opacity: 1;
+    transform: translate(0, 0);
+    transition: all 200ms ease-in-out;
+}
+
+.btnChangeUserPhoto {
+    font-size: 13px;
+    padding: 9px 10px;
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+.userPhoto {
+    max-width: 200px;
+    border-radius: 50%;
+}
+
+h1.userName {
+    font-family: 'Montserrat-Regular', sans-serif;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.status {
+    text-align: center;
+    font-size: 18px;
 }
 
 .descriptionBlock {
-    padding: 10px;
+    background-color: #FFFFFF;
+    border-radius: 1rem;
+    padding: 30px;
+    box-shadow: 0 0 1.25rem 0 rgb(0 0 0 / 10%);
+    margin-bottom: 30px;
+}
+
+.bthEditProfile {
+    margin-bottom: 20px;
+}
+
+.profileInfoItem {
+    margin-bottom: 20px;
+}
+
+ .profileInfoItem span,  .profileInfoItem p {
+    font-family: 'Gilroy-Semibold', sans-serif;
+}
+
+.profileInfoContactLink {
+    margin-bottom: 20px;
 }
