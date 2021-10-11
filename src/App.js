@@ -67,7 +67,7 @@ let AppContainer = connect(mapStateToProps, {initializeApp})(App)
 
 export const MainApp = (props) => {
     return (
-        <BrowserRouter>
+        <BrowserRouter basename="/social-network-react">
             <Provider store={store}>
                 <AppContainer/>
             </Provider>

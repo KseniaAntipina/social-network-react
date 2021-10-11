@@ -7,9 +7,9 @@ let initialState = {
         {id: 3, message: 'yo'},
     ],
     dialogs: [
-        {id: 1, name: 'Мама'},
-        {id: 2, name: 'Папа'},
-        {id: 3, name: 'Саша'},
+        {id: 1, name: 'Даша'},
+        {id: 2, name: 'Маша'},
+        {id: 3, name: 'Вася'},
     ],
 }
 
