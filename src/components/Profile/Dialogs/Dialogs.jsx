@@ -49,7 +49,12 @@ const AddMessageForm = props => {
     return (
         <Form
             onSubmit={props.onSubmit}>
-            {({ handleSubmit}) => (
+            {({ handleSubmit, form, submitSucceeded, values}) => {
+                if (submitSucceeded) {
+                form.reset();
+                Object.keys(values).forEach(field => form.resetFieldState(field));
+            }
+                return (
             <form onSubmit={handleSubmit}>
                 <div>
                     <Field name="newMessageBody"
@@ -58,8 +63,9 @@ const AddMessageForm = props => {
                            placeholder="Enter your message..." />
                 </div>
                 <button>send</button>
+
             </form>
-        )}
+            )}}
         </Form>
     )
 }

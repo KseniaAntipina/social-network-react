@@ -11,9 +11,9 @@ const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS';
 
 let initialState = {
     posts: [
-        {id: 1, post: 'how are you', likeCount: 10},
-        {id: 2, post: 'nice day', likeCount: 5},
-        {id: 3, post: 'yo yo yo', likeCount: 1},
+        {id: 1, post: 'to to dooo', likeCount: 10, date: '1.02.2021'},
+        {id: 2, post: 'nice day', likeCount: 5, date: '14.07.2021'},
+        {id: 3, post: 'first post', likeCount: 1, date: '24.09.2021'},
     ],
     newPostText: 'Введите сообщение...',
     profile: null,
@@ -26,7 +26,9 @@ const profileReducer = (state = initialState, action) => {
         case ADD_POST:
             return {
                 ...state,
-                posts: [...state.posts, {id: 4, post: action.newPostText, likeCount: 1,}],
+                posts: [...state.posts,
+                    //{id: 4, post: action.newPostText, likeCount: 0, date: action.date }],
+                    {id: state.posts.length + 1, post: action.newPostText, likeCount: 0, date: action.date  }],
             }
         case DELETE_POST:
             return {
@@ -42,7 +44,6 @@ const profileReducer = (state = initialState, action) => {
             return {
                 ...state,
                 profile: action.profile
-                // profile: {...state.profile, ...action.profile}
             }
         case SET_STATUS:
             return {
@@ -62,9 +63,9 @@ const profileReducer = (state = initialState, action) => {
 
 export default profileReducer
 
-export const addPostAC = (newPostText) => {
+export const addPostAC = (newPostText, date) => {
     return {
-        type: ADD_POST, newPostText
+        type: ADD_POST, newPostText, date
     }
 }
 
@@ -96,7 +97,6 @@ export const getProfile = (userId) => {
     return async (dispatch) => {
         let response = await profileAPI.getProfile(userId)
         dispatch(setUserProfile(response.data))
-        console.log(response.data)
     }
 }
 
@@ -108,16 +108,22 @@ export const getStatus = (userId) => {
 }
 
 export const updateStatus = (status) => {
+
     return async (dispatch) => {
-        try {
-            let response = await profileAPI.updateStatus(status)
-            if (response.data.resultCode === 0) {
-                dispatch(setStatus(status))
-            }
-        } catch (e) {
-            return e.message
-            // вывести ошибку задиспачить
+
+        let response = await profileAPI.updateStatus(status)
+        let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error";
+
+        if (response.data.resultCode === 0) {
+            dispatch(setStatus(status))
         }
+        else {
+            return  Promise.reject({message})
+        }
+
+        // вывести ошибку задиспачить
+        //console.log(response.data.messages)
+
     }
 }
 
@@ -130,24 +136,15 @@ export const savePhoto = (file) => {
     }
 }
 
-export const saveProfile = (profileData) => async (dispatch, getState) => {
-    /*const response = await profileAPI.saveProfile(profileData)
+export const saveProfile = (profileData) => async (dispatch) => {
 
-    if (response.data.resultCode === 0) {
-        console.log(profileData)
-        dispatch(setUserProfile(profileData))
-    }*/
-    // сделать рефакторинг: убрать лишний запрос на сервер
-    const userId = getState().auth.userId;
     const response = await profileAPI.saveProfile(profileData);
     let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error";
 
     if (response.data.resultCode === 0) {
-        dispatch(getProfile(userId));
+        dispatch(setUserProfile(profileData))
+
     } else {
-
-        // return {[FORM_ERROR]: message}
         return Promise.reject({[FORM_ERROR]: message})
-
     }
 }

@@ -5,6 +5,7 @@ const ProfileStatusWithHooks = (props) => {
 
     const [editMode, setEditMode] = useState(false);
     const [status, setStatus] = useState(props.status);
+    const [errorSubmit, setErrorSubmit] = useState(null);
 
     useEffect(() => {
         setStatus(props.status)
@@ -12,8 +13,14 @@ const ProfileStatusWithHooks = (props) => {
 
 
     const deActivateEditMode = () => {
-        setEditMode(false)
-        props.updateStatus(status)
+       return props.updateStatus(status)
+            .then(() => {
+                setEditMode(false);
+                setErrorSubmit(null)
+            })
+            .catch(() => {
+               return setErrorSubmit('Maximum message length 300 characters')
+            })
     }
 
     const onStatusChange = (e) => {
@@ -24,7 +31,7 @@ const ProfileStatusWithHooks = (props) => {
         <>
             {!editMode &&
             <div onClick={() => setEditMode(true)} className={s.status}>
-               {props.status || "change status..."}
+                {props.status || "change status..."}
             </div>
             }
             {editMode &&
@@ -34,8 +41,10 @@ const ProfileStatusWithHooks = (props) => {
                        onChange={onStatusChange}
                        value={status}
                 />
+
             </div>
             }
+            <div>{errorSubmit}</div>
         </>
     )
 }

@@ -3,10 +3,11 @@ import reportWebVitals from './reportWebVitals';
 import ReactDOM from 'react-dom';
 import './index.css';
 import {MainApp} from './App';
+import {BrowserRouter} from "react-router-dom";
 
 
 ReactDOM.render(
-     <MainApp/>, document.getElementById('root')
+    <BrowserRouter basename="/social-network-react"> <MainApp/>  </BrowserRouter>, document.getElementById('root')
 );
 
 

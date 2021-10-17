@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
-import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
 import {connect, Provider} from "react-redux";
@@ -16,18 +16,13 @@ const UsersContainer = React.lazy(() => import('./components/Users/UsersContaine
 
 class App extends React.Component {
 
-    catchAllUnhandledErrors = (reason, promise) => {
-        alert("Some error occured");
-        //console.error(promiseRejectionEvent);
-    }
+
     componentDidMount() {
         this.props.initializeApp();
-        window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors);
+
     }
 
-    componentWillUnmount() {
-        window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors);
-    }
+
 
     render() {
 
@@ -46,7 +41,7 @@ class App extends React.Component {
                             <Route path='/dialogs' render={() => <DialogsContainer/>}/>
                             <Route path='/users' render={() => <UsersContainer/>}/>
                             <Route path='/login' render={() => <Login/>}/>
-                            <Redirect exact from="/social-network-react" to="/profile/:userId?" />
+                            <Redirect exact from="/" to="/profile/:userId?" />
                             <Route path='*' render={() => <div>not found 404</div>}/>
                         </Switch>
                     </React.Suspense>
@@ -67,10 +62,10 @@ let AppContainer = connect(mapStateToProps, {initializeApp})(App)
 
 export const MainApp = (props) => {
     return (
-        <BrowserRouter basename="/social-network-react">
+
             <Provider store={store}>
                 <AppContainer/>
             </Provider>
-        </BrowserRouter>
+
     )
 }

@@ -4,24 +4,38 @@ import Post from "./Post/Post";
 import {Field, Form} from "react-final-form";
 import {maxLengthCreator, required} from "../../../utils/validators/validators";
 import {Textarea} from "../../common/FormsControls/FormsControls";
+import {currentDate} from "../../../utils/helpers";
 
 const MyPosts = (props) => {
 
-    let postsItems = props.posts.map(p => <Post userPhoto={props.profile.photos.large} message={p.post} key={p.id}
+    let postsItems = props.posts.map(p => <Post userPhoto={props.profile.photos.large}
+                                                userName={props.profile.fullName}
+                                                message={p.post} key={p.id}
+                                                date={p.date}
                                                 likeCount={p.likeCount}/>)
 
     let addPost = (values) => {
-        props.addPost(values.newPostText)
+        props.addPost(values.newPostText, currentDate())
+
     }
 
+
     return (
-        <div className={s.postsBlock}>
-            <h3>My posts</h3>
-            <AddPostForm onSubmit={addPost}/>
-            <div className={s.posts}>
-                {postsItems}
+        <>
+            <div className={s.submitPostBox}>
+                <div className={s.postUserPhoto}>
+                    <img src={props.profile.photos.large} alt="фото пользователя"/>
+                </div>
+                <div className={s.postCreate}>
+                    <AddPostForm onSubmit={addPost}/>
+                </div>
             </div>
-        </div>
+            <div className={s.postsBlock}>
+                <div className={s.allPosts}>
+                    {postsItems}
+                </div>
+            </div>
+        </>
     )
 }
 
@@ -32,18 +46,27 @@ const composeValidators = (...validators) => value =>
 
 const AddPostForm = props => {
 
-    return (
+     return (
         <Form onSubmit={props.onSubmit}>
-            {({handleSubmit}) => (
-                <form onSubmit={handleSubmit}>
+            {({handleSubmit, form, submitSucceeded, values }) => {
+               if (submitSucceeded) {
+                form.reset();
+                    Object.keys(values).forEach(field => form.resetFieldState(field));
+                }
+                return (
+                <form
+                    onSubmit={handleSubmit}
+                >
                     <Field name="newPostText"
+                           classname="newPostText"
                            component={Textarea}
-                           placeholder="Enter your post..."
-                           validate={composeValidators(required, maxLengthCreator(30))}
+                           placeholder="Write something here..."
+                           validate={composeValidators(required, maxLengthCreator(200))}
                     />
                     <button className={`${s.bthPublishPost} btnDefault`}>Publish</button>
+
                 </form>
-            )}
+            )}}
         </Form>
     )
 }
