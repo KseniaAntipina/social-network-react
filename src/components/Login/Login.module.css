@@ -1,0 +1,15 @@
+.title {
+    font-family: 'Montserrat-Regular', sans-serif;
+}
+
+.loginBlock input {
+    border: 1px solid rgb(220, 225, 230);
+    padding: 5px 9px 7px;
+    border-radius: 3px;
+    width: 250px;
+}
+
+.loginBlock input:nth-child(1) {
+    margin-bottom: 10px;
+
+}

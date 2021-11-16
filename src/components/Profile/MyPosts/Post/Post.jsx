@@ -6,7 +6,7 @@ const Post = (props) => {
     return (
             <div className={s.postItem}>
                 <div className={s.postHeader}>
-                    <img className={s.ava} src={props.userPhoto} alt="фото пользователя"/>
+                    <img className={s.ava} src={props.userPhoto} alt="user photo"/>
                     <div className={s.postHeaderInfo}>
                         <span className={s.postAuthor}>{props.userName}</span>
                         <span className={s.postDate}>{props.date}</span>

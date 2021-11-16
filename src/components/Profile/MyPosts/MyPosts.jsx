@@ -24,7 +24,7 @@ const MyPosts = (props) => {
         <>
             <div className={s.submitPostBox}>
                 <div className={s.postUserPhoto}>
-                    <img src={props.profile.photos.large} alt="фото пользователя"/>
+                    <img src={props.profile.photos.large} alt="user photo"/>
                 </div>
                 <div className={s.postCreate}>
                     <AddPostForm onSubmit={addPost}/>

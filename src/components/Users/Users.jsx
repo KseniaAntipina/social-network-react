@@ -1,6 +1,7 @@
 import React from "react";
 import Pagination from "../common/Pagination/Pagination";
 import User from "./User";
+import s from './Users.module.css'
 
 const Users = (props) => {
 
@@ -10,12 +11,14 @@ const Users = (props) => {
                         pageSize={props.pageSize}
                         currentPage={props.currentPage}
                         onPageChanged={props.onPageChanged}/>
-            {
-                props.users.map(u => <User key={u.id}
-                                           user={u}
-                                           follow={props.follow}
-                                           followingInProgress={props.followingInProgress}/>)
-            }
+            <div className={s.usersWrap}>
+                {
+                    props.users.map(u => <User key={u.id}
+                                               user={u}
+                                               follow={props.follow}
+                                               followingInProgress={props.followingInProgress}/>)
+                }
+            </div>
         </div>
     )
 }

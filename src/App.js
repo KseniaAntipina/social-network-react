@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
-import {Redirect, Route, Switch} from "react-router-dom";
+import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
 import {connect, Provider} from "react-redux";
@@ -13,16 +13,11 @@ const DialogsContainer = React.lazy(() => import('./components/Profile/Dialogs/D
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
 
-
 class App extends React.Component {
-
 
     componentDidMount() {
         this.props.initializeApp();
-
     }
-
-
 
     render() {
 
@@ -45,9 +40,6 @@ class App extends React.Component {
                             <Route path='*' render={() => <div>not found 404</div>}/>
                         </Switch>
                     </React.Suspense>
-                    {/*<Route path='/news' component={News}/>*/}
-                    {/*<Route path='/music' component={Music}/>*/}
-                    {/*<Route path='/settings' component={Settings}/>*/}
                 </div>
             </div>
         );
@@ -60,12 +52,12 @@ const mapStateToProps = (state) => ({
 
 let AppContainer = connect(mapStateToProps, {initializeApp})(App)
 
-export const MainApp = (props) => {
+export const MainApp = () => {
     return (
-
+        <BrowserRouter basename="/social-network-react">
             <Provider store={store}>
                 <AppContainer/>
             </Provider>
-
+        </BrowserRouter>
     )
 }

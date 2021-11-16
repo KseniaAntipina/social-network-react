@@ -26,7 +26,7 @@ const User = ({user, followingInProgress, follow}) => {
 
                         }}>follow</button>
                 }
-                <div>{user.status}</div>
+                <div className={s.userStatus}>{user.status}</div>
             </div>
     )
 }

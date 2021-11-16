@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import s from './Dialogs.module.css'
-import DialogItem from "./DialogItem/DialogItem";
+import DialogItemPreview from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import {Field, Form} from "react-final-form";
 import {maxLengthCreator, required} from "../../../utils/validators/validators";
@@ -8,30 +8,33 @@ import {Textarea} from "../../common/FormsControls/FormsControls";
 
 const Dialogs = (props) => {
 
+
     let messagesPage = props.messagesPage
-    let dialogsItems = messagesPage.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
-    let messagesItems = messagesPage.messages.map(m => <Message message={m.message}/>)
+    let dialogsItems = messagesPage.dialogs.map(d =>
+        <DialogItemPreview
+        name={d.name}
+        id={d.id}
+        message={d.message}
+        />)
 
 
-    let addMessage = (values) => {
+   // let messagesItems = messagesPage.messages.map(m => <Message message={m.message}/>)
+
+
+    /*let addMessage = (values) => {
         props.sendMessage(values.newMessageBody);
-    }
+    }*/
 
     /*if (!props.isAuth) return <Redirect to={"/login"}/>*/
 
     return (
         <>
             <div className={s.dialogs}>
-                <div className={s.dialogsItems}>
-                    {dialogsItems}
-                </div>
-                <div className={s.messages}>
-                    {messagesItems}
-                </div>
+                {dialogsItems}
             </div>
-            <div className={s.addMessage}>
+            {/*<div className={s.addMessage}>
                 <AddMessageForm onSubmit={addMessage}/>
-            </div>
+            </div>*/}
 
         </>
     )

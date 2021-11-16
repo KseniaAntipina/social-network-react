@@ -44,7 +44,7 @@ const ProfileStatusWithHooks = (props) => {
 
             </div>
             }
-            <div>{errorSubmit}</div>
+            <div className={s.statusError}>{errorSubmit}</div>
         </>
     )
 }

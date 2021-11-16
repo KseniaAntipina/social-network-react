@@ -1,5 +1,11 @@
-.pagination {
+.paginator {
     margin: 20px 0;
+    background-color: #FFFFFF;
+    border-radius: 1rem;
+    padding: 20px;
+    box-shadow: 0 0 1.25rem 0 rgb(0 0 0 / 10%);
+    display: flex;
+    align-items: center;
 }
 
 .selectedPage {
@@ -7,11 +13,12 @@
      padding: 0 10px;
 }
 
-.paginator {
-    margin: 10px;
+.pagesNumbers {
+    margin: 0 10px;
 }
+
+
 .pageNumber {
-    border: 1px solid grey;
     padding: 0 10px;
     cursor: pointer;
 }

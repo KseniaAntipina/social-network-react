@@ -11,9 +11,9 @@ const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS';
 
 let initialState = {
     posts: [
-        {id: 1, post: 'to to dooo', likeCount: 10, date: '1.02.2021'},
+        {id: 1, post: 'to to dooo', likeCount: 10, date: '11.09.2021'},
         {id: 2, post: 'nice day', likeCount: 5, date: '14.07.2021'},
-        {id: 3, post: 'first post', likeCount: 1, date: '24.09.2021'},
+        {id: 3, post: 'first post', likeCount: 1, date: '24.05.2021'},
     ],
     newPostText: 'Введите сообщение...',
     profile: null,
@@ -26,9 +26,7 @@ const profileReducer = (state = initialState, action) => {
         case ADD_POST:
             return {
                 ...state,
-                posts: [...state.posts,
-                    //{id: 4, post: action.newPostText, likeCount: 0, date: action.date }],
-                    {id: state.posts.length + 1, post: action.newPostText, likeCount: 0, date: action.date  }],
+                posts: [{id: state.posts.length + 1, post: action.newPostText, likeCount: 0, date: action.date}, ...state.posts],
             }
         case DELETE_POST:
             return {

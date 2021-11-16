@@ -94,6 +94,12 @@ h1.userName {
     font-size: 18px;
 }
 
+.statusError {
+    max-width: 350px;
+    color: red;
+    margin: 20px auto;
+}
+
 .descriptionBlock {
     background-color: #FFFFFF;
     border-radius: 1rem;
@@ -117,3 +123,11 @@ h1.userName {
 .profileInfoContactLink {
     margin-bottom: 20px;
 }
+
+.descriptionBlock form input, .descriptionBlock form textarea  {
+    border: 1px solid rgb(220, 225, 230);
+    padding: 5px 9px 7px;
+    border-radius: 3px;
+    width: 250px;
+}
+

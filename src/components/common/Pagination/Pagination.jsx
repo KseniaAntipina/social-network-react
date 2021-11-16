@@ -18,20 +18,25 @@ let Pagination = ({totalItemsCount, pageSize, currentPage, onPageChanged, portio
 
 
     return <div className={styles.paginator}>
-        { portionNumber > 1 &&
-        <button className="btnDefault" onClick={() => { setPortionNumber(portionNumber - 1) }}>PREV</button> }
-
-        {pages
-            .filter(p => p >= leftPortionPageNumber && p<=rightPortionPageNumber)
-            .map((p) => {
-                return <span className={ currentPage === p ? styles.selectedPage : styles.pageNumber}
-                             key={p}
-                             onClick={(e) => {
-                                 onPageChanged(p);
-                             }}>{p}</span>
-            })}
-        { portionCount > portionNumber &&
-        <button className="btnDefault" onClick={() => { setPortionNumber(portionNumber + 1) }}>NEXT</button> }
+        {portionNumber > 1 &&
+        <button className="btnDefault" onClick={() => {
+            setPortionNumber(portionNumber - 1)
+        }}>PREV</button>}
+        <div className={styles.pagesNumbers}>
+            {pages
+                .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
+                .map((p) => {
+                    return <span className={currentPage === p ? styles.selectedPage : styles.pageNumber}
+                                 key={p}
+                                 onClick={(e) => {
+                                     onPageChanged(p);
+                                 }}>{p}</span>
+                })}
+        </div>
+        {portionCount > portionNumber &&
+        <button className="btnDefault" onClick={() => {
+            setPortionNumber(portionNumber + 1)
+        }}>NEXT</button>}
 
 
     </div>
